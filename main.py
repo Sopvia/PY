@@ -56,22 +56,22 @@ def toggle(name):
 def check():
     length = scale.get()
 
-    if checked_buttons.count("uppercase") and len(uppercase_entry.get()) >= 1:
+    if checked_buttons.count("uppercase") == 1 and len(uppercase_entry.get()) >= 1:
         upper = int(uppercase_entry.get())
     else:
         upper = 0
 
-    if checked_buttons.count("lowercase") and len(lowercase_entry.get()) >= 1:
+    if checked_buttons.count("lowercase") == 1 and len(lowercase_entry.get()) >= 1:
         lower = int(lowercase_entry.get())
     else:
         lower = 0
 
-    if checked_buttons.count("digits") and len(digits_entry.get()) >= 1:
+    if checked_buttons.count("digits") == 1 and len(digits_entry.get()) >= 1:
         digit = int(digits_entry.get())
     else:
         digit = 0
 
-    if checked_buttons.count("symbols") and len(symbols_entry.get()) >= 1:
+    if checked_buttons.count("symbols") == 1 and len(symbols_entry.get()) >= 1:
         symbol = int(symbols_entry.get())
     else:
         symbol = 0
@@ -114,16 +114,14 @@ def generate():
     digits = string.digits
     symbols = string.punctuation
 
-    letter_uppercase, letter_lowercase, nums, syms = True, True, True, True
-
     characters = ''
-    if letter_uppercase:
+    if uppercaseVar.get():
         characters += uppercase
-    if letter_lowercase:
+    if lowercaseVar.get():
         characters += lowercase
-    if nums:
+    if digitsVar.get():
         characters += digits
-    if syms:
+    if symbolsVar.get():
         characters += symbols
 
     length = int(scale.get())
@@ -133,20 +131,20 @@ def generate():
     r = 0
     for x in range(amount):
         chars = []
-        if len(uppercase_entry.get()) >= 1:
+        if uppercaseVar.get() and len(uppercase_entry.get()) >= 1:
             for y in range(int(uppercase_entry.get())):
                 uppercase_result = ''.join(random.choice(uppercase))
                 chars.append(uppercase_result)
-        if len(lowercase_entry.get()) >= 1:
+        if lowercaseVar.get() and len(lowercase_entry.get()) >= 1:
             for y in range(int(lowercase_entry.get())):
                 lowercase_result = ''.join(random.choice(lowercase))
                 chars.append(lowercase_result)
-        if len(digits_entry.get()) >= 1:
+        if digitsVar.get() and len(digits_entry.get()) >= 1:
             for y in range(int(digits_entry.get())):
                 digits_result = ''.join(random.choice(digits))
                 chars.append(digits_result)
-        if len(symbols_entry.get()) >= 1:
-            for y in range(int(uppercase_entry.get())):
+        if symbolsVar.get() and len(symbols_entry.get()) >= 1:
+            for y in range(int(symbols_entry.get())):
                 symbols_result = ''.join(random.choice(symbols))
                 chars.append(symbols_result)
 
