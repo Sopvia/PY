@@ -10,7 +10,7 @@ import re
 
 root = Tk()
 root.title('Passwort Generator')
-root.geometry("600x600+700+200")
+root.geometry("650x750")
 
 img = PhotoImage(file='icon.png')
 root.wm_iconphoto(False, img)
@@ -21,6 +21,8 @@ master.grid(row=0, column=0, sticky="nsew", padx=20, pady=20)
 results = tkinter.Frame(root)
 results.grid(row=9, column=0, sticky="nsew", padx=85, pady=20)
 
+language = "german"
+    
 
 def toggle(name):
     if name == 'uppercase':
@@ -161,29 +163,28 @@ def generate():
 
         output = Button(results, text=result, font="Georgia",
             command=lambda button_text=result: copy(button_text), activebackground="lightpink",
-            cursor="heart", height=1, width=22, padx=2, pady=2)
+            cursor="heart", height=1, width=22, padx=4, pady=4)
         output.grid(row=9 + r, column=idx)
 
         idx = idx + 1
         if idx % 2:
             r = r + 1
             idx = 1
-   
 
-Label(master, text="Länge des Passwortes:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=1, column=1)
-Label(master, text="Mindestanzahl Großbuchstaben:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=2,
-                                                                                                                column=1,
-                                                                                                                padx=4)
-Label(master, text="Mindestanzahl Kleinbuchstaben:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=3,
-                                                                                                                 column=1,
-                                                                                                                 padx=4)
-Label(master, text="Mindestanzahl Zahlen:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=4, column=1, padx=4)
-Label(master, text="Mindestanzahl Sonderzeichen:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=5,
-                                                                                                               column=1,
-                                                                                                               padx=4)
-Label(master, text="Anzahl der Passwörter:", font="Georgia", relief=RIDGE, width=40, borderwidth=2).grid(row=6,
-                                                                                                         column=1,
-                                                                                                         padx=4)
+
+
+labelLength = tkinter.Label(master, text="Länge des Passwortes:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelLength.grid(row=1, column=1)
+labelUppercase = Label(master, text="Mindestanzahl Großbuchstaben:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelUppercase.grid(row=2, column=1, padx=4)
+labelLowercase = Label(master, text="Mindestanzahl Kleinbuchstaben:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelLowercase.grid(row=3, column=1, padx=4)
+labelDigits = Label(master, text="Mindestanzahl Zahlen:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelDigits.grid(row=4, column=1, padx=4)
+labelSymbols = Label(master, text="Mindestanzahl Sonderzeichen:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelSymbols.grid(row=5, column=1, padx=4)
+labelAmount = Label(master, text="Anzahl der Passwörter:", font="Georgia", relief=RIDGE, width=40, borderwidth=2)
+labelAmount.grid(row=6, column=1, padx=4)
 
 scale = Scale(master, from_=0, to=20, font="Georgia", orient=HORIZONTAL, activebackground="lightpink", cursor="heart")
 
@@ -244,5 +245,42 @@ amountPasswords.grid(row=6, column=2, sticky="ew")
 button = Button(master, text="Generieren", font="Georgia", command=check, relief=RAISED, activebackground="lightpink",
                 cursor="heart")
 button.grid(row=8, column=2, pady=10)
+
+
+def switchLanguage():
+    global language
+    if language == "english":
+        language = "german"
+    else:
+        language = "english"
+
+    if language == "german":
+        labelLengthText = "Länge des Passwortes:"
+        labelUppercaseText = "Mindestanzahl Großbuchstaben:"
+        labelLowercaseText = "Mindestanzahl Kleinbuchstaben:"
+        labelDigitsText = "Mindestanzahl Zahlen:"
+        labelSymbolsText = "Mindestanzahl Sonderzeichen:"
+        labelAmountText = "Anzahl der Passwörter:"
+        buttonText = "Generieren"
+    elif language == "english":
+        labelLengthText = "Length of password:"
+        labelUppercaseText = "Minimum number of uppercase letters:"
+        labelLowercaseText = "Minimum number of lowercase letters:"
+        labelDigitsText = "Minimum number of digits:"
+        labelSymbolsText = "Minimum number of special characters:"
+        labelAmountText = "Number of passwords:"
+        buttonText = "Generate"
+
+    labelLength.configure(text=labelLengthText)
+    labelUppercase.configure(text=labelUppercaseText)
+    labelLowercase.configure(text=labelLowercaseText)
+    labelDigits.configure(text=labelDigitsText)
+    labelSymbols.configure(text=labelSymbolsText)
+    labelAmount.configure(text=labelAmountText)
+    button.configure(text=buttonText)
+
+
+language = Button(master, text="De/En", font="Georgia", relief=RAISED, activebackground="lightpink",
+                cursor="heart", command=switchLanguage).grid(row=0, column=0, sticky="ew")
 
 master.mainloop()
